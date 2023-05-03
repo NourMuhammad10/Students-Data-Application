@@ -1,0 +1,3 @@
+D:/Second Year , Second Term/Data Structures/Assignmnet_3/Students-Data-Application/cmake-build-debug/CMakeFiles/Students-Data-Application.dir
+D:/Second Year , Second Term/Data Structures/Assignmnet_3/Students-Data-Application/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Second Year , Second Term/Data Structures/Assignmnet_3/Students-Data-Application/cmake-build-debug/CMakeFiles/rebuild_cache.dir
