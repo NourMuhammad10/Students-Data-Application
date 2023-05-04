@@ -19,7 +19,7 @@ BinarySearchTree<T>::BinarySearchTree() {
 
 template<class T>
 void BinarySearchTree<T>::destroyRecursive(Node<T> *node) {
-   ///Time Complexity O(n + m), where n is the number of nodes, and m is the number of edges.
+   ///Time Complexity O(N)
     if (node)
     {
         destroyRecursive(node->left);
@@ -158,7 +158,7 @@ void BinarySearchTree<T>::Delete(const T& el) {
 
 template<class T>
 void BinarySearchTree<T>::inorder(Node<T> *r) {
-    ///Time Complexity O(n + m), where n is the number of nodes, and m is the number of edges.
+    ///Time Complexity O(N)
     if(r != nullptr){
         inorder(r->left);
         cout<<r->data<<" ";
@@ -168,7 +168,7 @@ void BinarySearchTree<T>::inorder(Node<T> *r) {
 
 template<class T>
 void BinarySearchTree<T>::preorder(Node<T>* r){
-    ///Time Complexity O(n + m), where n is the number of nodes, and m is the number of edges.
+    ///Time Complexity O(N)
     if(r==nullptr){
         return;
     }
@@ -179,7 +179,7 @@ void BinarySearchTree<T>::preorder(Node<T>* r){
 
 template<class T>
 void BinarySearchTree<T>::postorder(Node<T> *r) {
-    ///Time Complexity O(n + m), where n is the number of nodes, and m is the number of edges.
+    ///Time Complexity O(N)
     if( r != nullptr){
         postorder(r->left);
         postorder(r->right);
