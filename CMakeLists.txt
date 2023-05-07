@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(Students-Data-Application
         BinarySearchTree/BinarySearchTree.cpp
         BinarySearchTree/BinarySearchTree.h
-        main.cpp)
+        main.cpp AVLTree/AVL.h AVLTree/AVL.cpp)
