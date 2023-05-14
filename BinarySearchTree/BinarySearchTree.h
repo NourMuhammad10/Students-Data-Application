@@ -22,17 +22,19 @@ public:
     Node<T>* getRoot();
     Node<T>* insert (Node<T>* node, T el);
     void insert(const T& el);
-    bool search(const T& el);
-    Node<T>* searchNode(const T& el);
-    Node<T>* getPreviousNode(const T& el);
-    void Delete(const T& el);
-    void inorder(Node<T>* r); //needed for testing only
-    void preorder(Node<T>* r); //needed for testing only
-    void postorder(Node<T>* r); //needed for testing only
+    Node<T>* searchNode(Node<T>* node, T data);
+    T search(T data);
+    Node<T>* findMin(Node<T>* node);
+    Node<T>* deleteNode(Node<T>* node, T data);
+    void remove(T data);
+    void inorder(Node<T>* r);
+    void preorder(Node<T>* r);
+    void postorder(Node<T>* r);
 //    //For sorting the BST
 //    void inOrderTraversal(Node<T>* root, vector<T>& sorted);
 //    vector<T> sortBinarySearchTree(Node<T>* root);
 };
+
 
 
 #endif //STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H

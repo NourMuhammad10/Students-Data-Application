@@ -7,3 +7,15 @@
 17	5506	7057902070477556	CMakeFiles/Students-Data-Application.dir/MinHeap/MinHeap.cpp.obj	e43e0f6ad2f82b9c
 6	5745	7057902073181374	CMakeFiles/Students-Data-Application.dir/main.cpp.obj	c6c80805d2a24161
 5746	7456	7057902090274160	Students-Data-Application.exe	fa8b4012056310c8
+10	2751	7057906805021285	CMakeFiles/Students-Data-Application.dir/main.cpp.obj	c6c80805d2a24161
+2751	3034	7057906807746043	Students-Data-Application.exe	fa8b4012056310c8
+16	5971	7057934798710584	CMakeFiles/Students-Data-Application.dir/BinarySearchTree/BinarySearchTree.cpp.obj	86d3595264529f7d
+51	6122	7057934800331928	CMakeFiles/Students-Data-Application.dir/main.cpp.obj	c6c80805d2a24161
+6122	6668	7057934805617005	Students-Data-Application.exe	fa8b4012056310c8
+52	5408	7057935925832343	CMakeFiles/Students-Data-Application.dir/BinarySearchTree/BinarySearchTree.cpp.obj	86d3595264529f7d
+21	4219	7057939879856886	CMakeFiles/Students-Data-Application.dir/BinarySearchTree/BinarySearchTree.cpp.obj	86d3595264529f7d
+7	4497	7057939882608172	CMakeFiles/Students-Data-Application.dir/main.cpp.obj	c6c80805d2a24161
+4497	4808	7057939885668306	Students-Data-Application.exe	fa8b4012056310c8
+72	7986	7057942330562690	CMakeFiles/Students-Data-Application.dir/BinarySearchTree/BinarySearchTree.cpp.obj	86d3595264529f7d
+11	8687	7057942337661153	CMakeFiles/Students-Data-Application.dir/main.cpp.obj	c6c80805d2a24161
+8688	9159	7057942342348252	Students-Data-Application.exe	fa8b4012056310c8
