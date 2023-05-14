@@ -1,6 +1,8 @@
 #ifndef STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
 #define STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
 
+#include<bits/stdc++.h>
+using namespace std;
 template<class T>
 class Node{
 public:
@@ -27,6 +29,9 @@ public:
     void inorder(Node<T>* r); //needed for testing only
     void preorder(Node<T>* r); //needed for testing only
     void postorder(Node<T>* r); //needed for testing only
+//    //For sorting the BST
+//    void inOrderTraversal(Node<T>* root, vector<T>& sorted);
+//    vector<T> sortBinarySearchTree(Node<T>* root);
 };
 
 

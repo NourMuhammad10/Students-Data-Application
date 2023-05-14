@@ -19,7 +19,7 @@ BinarySearchTree<T>::BinarySearchTree() {
 
 template<class T>
 void BinarySearchTree<T>::destroyRecursive(Node<T> *node) {
-   ///Time Complexity O(N)
+    ///Time Complexity O(N)
     if (node)
     {
         destroyRecursive(node->left);
@@ -186,3 +186,19 @@ void BinarySearchTree<T>::postorder(Node<T> *r) {
         cout<<r->data<<" ";
     }
 }
+//template<class T>
+//void BinarySearchTree<T>:: inOrderTraversal(Node<T>* root, vector<T>& sorted) {
+//    if (root == nullptr) {
+//        return;
+//    }
+//
+//    inOrderTraversal(root->left, sorted);
+//    sorted.push_back(root->data);
+//    inOrderTraversal(root->right, sorted);
+//}
+//template<class T>
+//vector<T>  BinarySearchTree<T>::sortBinarySearchTree(Node<T>* root) {
+//    vector<T> sorted;
+//    inOrderTraversal(root, sorted);
+//    return sorted;
+//}
