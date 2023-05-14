@@ -22,7 +22,8 @@ private:
     AVLNode<T>* root = nullptr;
 public:
     AVL();
-    AVLNode<T>* insert(T val);
+    void insert(T val);
+    void deleteNode(T val);
     AVLNode<T>* getRoot();
     void setRoot(AVLNode<T>* rt){
         this->root = rt;
@@ -30,10 +31,12 @@ public:
     int max(int a, int b);
     int getHeight(AVLNode<T> *node);
     void updateHeight(AVLNode<T>* node);
-//    void checkViolation();
     int getBalance(AVLNode<T> *node);
-    AVLNode<T>* leftRotation(AVLNode<T> *v);
-    AVLNode<T>* rightRotation(AVLNode<T> *v);
+    void searchNode(T val);
+    AVLNode<T>* minValueNode(AVLNode<T>* node);
+    void solveViolation(AVLNode<T>* node, T val);
+    void leftRotation(AVLNode<T> *v);
+    void rightRotation(AVLNode<T> *v);
     void pre_Order(AVLNode<T>* node);
     void post_Order(AVLNode<T>* node);
     void in_Order(AVLNode<T>* node);

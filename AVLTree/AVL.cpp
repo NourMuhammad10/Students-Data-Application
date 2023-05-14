@@ -22,15 +22,14 @@ AVLNode<T> *AVL<T>::getRoot() {
 }
 
 template <class T>
-AVLNode<T>* AVL<T>::insert(T val) {
+void AVL<T>::insert(T val) {
     AVLNode<T>* newNode = new AVLNode<T>();
-    bool isRight = false, isLeft = false;
     newNode->data = val;
 
     /// first item to be inserted
     if(root == nullptr){
         root = newNode;
-        return root;
+        return;
     } else {
         /// other items to be inserted
         AVLNode<T>* current = root;
@@ -41,7 +40,6 @@ AVLNode<T>* AVL<T>::insert(T val) {
                 } else {
                     current->rightChild = newNode;
                     newNode->parent = current;
-                    isRight = true;
                     break;
                 }
             } else if(current->data > val){
@@ -50,9 +48,11 @@ AVLNode<T>* AVL<T>::insert(T val) {
                 } else {
                     current->leftChild = newNode;
                     newNode->parent = current;
-                    isLeft = true;
                     break;
                 }
+            } else {
+                cout << "cannot add duplicates\n";
+                return;
             }
         }
 
@@ -61,13 +61,10 @@ AVLNode<T>* AVL<T>::insert(T val) {
 
         /// Check if violation occurs
         bool violation = false;
-        cout << "\n\nnew insertion:\n";
         AVLNode<T>* temp = newNode;
         while (temp != nullptr){
             int balance = getBalance(temp);
-            cout << "Node: " << temp->data << " with balance = " << balance << " and height " << temp->height << "\n";
             if(balance > 1 || balance < -1){
-                cout << "Violated at: " << temp->data << " with balance = " << balance << "\n";
                 violation = true;
                 break;
             }
@@ -76,40 +73,148 @@ AVLNode<T>* AVL<T>::insert(T val) {
 
         /// Solve violation
         if(violation){
-            int balance = getBalance(temp);
-                if(balance < -1 && val > temp->rightChild->data){
-                    cout << "RR violation at " << temp->data << "\n";
-                    return leftRotation(temp);
-                } else if(balance > 1 && val > temp->leftChild->data){
-                    cout << "LR violation\n";
-                    AVLNode<T>* rt = temp;
-                    AVLNode<T>* rtChild = rt->leftChild;
-                    AVLNode<T>* leaf = rtChild->rightChild;
-                    AVLNode<T>* leafLeft = leaf->leftChild;
-                    leaf->parent = rt;
-                    rt->leftChild = leaf;
-                    leaf->leftChild = rtChild;
-                    rtChild->parent = leaf;
-                    rtChild->rightChild = leafLeft;
-                    return rightRotation(temp);
-                } else if(balance > 1 && val < temp->leftChild->data){
-                    cout << "LL violation at " << temp->data << "\n";
-                    return rightRotation(temp);
-                } else if(balance < -1 && val < temp->rightChild->data){
-                    cout << "RL violation\n";
-                    AVLNode<T>* rt = temp;
-                    AVLNode<T>* rtChild = rt->rightChild;
-                    AVLNode<T>* leaf = rtChild->leftChild;
-                    AVLNode<T>* leafRight = leaf->rightChild;
-                    leaf->parent = rt;
-                    rt->rightChild = leaf;
-                    leaf->rightChild = rtChild;
-                    rtChild->parent = leaf;
-                    rtChild->leftChild = leafRight;
-                    return leftRotation(temp);
-                }
+            return solveViolation(temp, val);
+        }
+    }
+}
+
+
+template <class T>
+void AVL<T>::deleteNode(T val) {
+    AVLNode<T> *temp2;
+    if(root == nullptr){
+        return;
+    } else {
+        AVLNode<T> *current = root;
+
+        while (current != NULL && current->data != val) {
+            if (val < current->data) {
+                current = current->leftChild;
             }
-        return root;
+            else {
+                current = current->rightChild;
+            }
+        }
+
+        if (current == NULL) {
+            cout << "Key " << val << " not found in the provided AVL.\n";
+            return;
+        }
+        /// it has no child or one child
+        if (current->leftChild == NULL || current->rightChild == NULL) {
+            AVLNode<T> *temp;
+            if (current->leftChild == NULL) {
+                temp = current->rightChild;
+            } else {
+                temp = current->leftChild;
+            }
+
+            /// there is no child
+            if (temp == NULL) {
+                temp = current;
+                if(current->data > current->parent->data) {
+                    current->parent->rightChild = NULL;
+                }
+                else {
+                    current->parent->leftChild = NULL;
+                }
+                current = NULL;
+            } else {
+                temp2 = temp->parent;
+                temp->parent = current->parent;
+                *current = *temp;
+            }
+            delete temp;
+        }
+        /// it has two children
+        else {
+            AVLNode<T> *temp;
+            temp = minValueNode(current->rightChild);
+            temp2 = temp->parent;
+            if(temp->data > temp->parent->data) {
+                temp->parent->rightChild = NULL;
+            }
+            else {
+                temp->parent->leftChild = NULL;
+            }
+            current->data = temp->data;
+            delete temp;
+        }
+        updateHeight(temp2);
+
+        AVLNode<T>* temp3 = temp2;
+        while (temp3 != nullptr){
+            int balance = getBalance(temp3);
+            if(balance > 1 || balance < -1){
+                solveViolation(temp3, val);
+            }
+            temp3 = temp3->parent;
+        }
+    }
+}
+
+template <class T>
+AVLNode<T> *AVL<T>::minValueNode(AVLNode<T>* node)
+{
+    AVLNode<T>* current = node;
+
+    /* loop down to find the leftmost leaf */
+    while (current->leftChild != nullptr)
+        current = current->leftChild;
+
+    return current;
+}
+
+template <class T>
+void AVL<T>::solveViolation(AVLNode<T> *temp, T val) {
+    int balance = getBalance(temp);
+    int rightBalance = getBalance(temp->rightChild);
+    int leftBalance = getBalance(temp->leftChild);
+    if(balance < -1 && rightBalance < 0){
+        leftRotation(temp);
+    } else if(balance > 1 && leftBalance > 0) {
+        rightRotation(temp);
+    }else if(balance > 1 && leftBalance < 0){
+        AVLNode<T>* rt = temp;
+        AVLNode<T>* rtChild = rt->leftChild;
+        AVLNode<T>* leaf = rtChild->rightChild;
+        AVLNode<T>* leafLeft = leaf->leftChild;
+        leaf->parent = rt;
+        rt->leftChild = leaf;
+        leaf->leftChild = rtChild;
+        rtChild->parent = leaf;
+        rtChild->rightChild = leafLeft;
+        rightRotation(temp);
+    } else if(balance < -1 && rightBalance > 0){
+        AVLNode<T>* rt = temp;
+        AVLNode<T>* rtChild = rt->rightChild;
+        AVLNode<T>* leaf = rtChild->leftChild;
+        AVLNode<T>* leafRight = leaf->rightChild;
+        leaf->parent = rt;
+        rt->rightChild = leaf;
+        leaf->rightChild = rtChild;
+        rtChild->parent = leaf;
+        rtChild->leftChild = leafRight;
+        leftRotation(temp);
+    }
+}
+
+template <class T>
+void AVL<T>::searchNode(T val){
+    AVLNode<T> *current = root;
+
+    while (current != NULL && current->data != val) {
+        if (val < current->data) {
+            current = current->leftChild;
+        }
+        else {
+            current = current->rightChild;
+        }
+    }
+    if (current == NULL) {
+        cout << "Key " << val << " not found in the provided AVL.\n";
+    } else {
+        cout << "key is found\n";
     }
 }
 
@@ -127,13 +232,13 @@ int AVL<T>::getHeight(AVLNode<T> *node) {
 
 template <class T>
 void AVL<T>::updateHeight(AVLNode<T>* node){
-    node->height = 1;
-    AVLNode<T>* temp = node;
-    while (temp->parent != nullptr){
-        temp->parent->height += 1;
+    AVLNode<T>* temp = node->parent;
+    while (temp != nullptr){
+        temp->height = getHeight(temp);
         temp = temp->parent;
     }
 }
+
 
 template <class T>
 int AVL<T>::getBalance(AVLNode<T> *node) {
@@ -148,7 +253,7 @@ int AVL<T>::getBalance(AVLNode<T> *node) {
 }
 
 template <class T>
-AVLNode<T> *AVL<T>::rightRotation(AVLNode<T> *root) {
+void AVL<T>::rightRotation(AVLNode<T> *root) {
     AVLNode<T>* temp = root->leftChild;
     AVLNode<T>* tempRight = temp->rightChild;
 
@@ -166,13 +271,18 @@ AVLNode<T> *AVL<T>::rightRotation(AVLNode<T> *root) {
     temp->parent = root->parent;
     root->parent = temp;
     temp->rightChild = root;
+
     root->height = getHeight(root);
     temp->height = getHeight(temp);
-    return root;
+    AVLNode<T>* newTemp = temp->parent;
+    while(newTemp != nullptr){
+        newTemp->height = getHeight(newTemp);
+        newTemp = newTemp->parent;
+    }
 }
 
 template <class T>
-AVLNode<T>* AVL<T>::leftRotation(AVLNode<T> *root) {
+void AVL<T>::leftRotation(AVLNode<T> *root) {
     AVLNode<T>* temp = root->rightChild;
     AVLNode<T>* tempLeft = temp->leftChild;
 
@@ -192,8 +302,11 @@ AVLNode<T>* AVL<T>::leftRotation(AVLNode<T> *root) {
     temp->leftChild = root;
     root->height = getHeight(root);
     temp->height = getHeight(temp);
-    return root;
-
+    AVLNode<T>* newTemp = temp->parent;
+    while(newTemp != nullptr){
+        newTemp->height = getHeight(newTemp);
+        newTemp = newTemp->parent;
+    }
 }
 
 template <class T>
@@ -216,7 +329,7 @@ void AVL<T>::post_Order(AVLNode<T> *node) {
 
 template <class T>
 void AVL<T>::in_Order(AVLNode<T> *node) {
-    if(node != nullptr){
+    if(node != nullptr) {
         in_Order(node->leftChild);
         cout << node->data << " ";
         in_Order(node->rightChild);
