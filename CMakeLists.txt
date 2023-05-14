@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(Students-Data-Application
         BinarySearchTree/BinarySearchTree.cpp
         BinarySearchTree/BinarySearchTree.h
-        main.cpp Student/Student.h Student/Student.cpp LoadFile.cpp)
+        main.cpp Student/Student.h Student/Student.cpp LoadFile.cpp MinHeap/MinHeap.h MinHeap/MinHeap.cpp)
