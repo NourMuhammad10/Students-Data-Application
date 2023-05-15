@@ -13,4 +13,4 @@ add_executable(Students-Data-Application
         Student/Student.h
         LoadFile.cpp
         MinHeap/MinHeap.cpp
-        MinHeap/MinHeap.h)
+        MinHeap/MinHeap.h MaxHeap/MaxHeap.h MaxHeap/MaxHeap.cpp)

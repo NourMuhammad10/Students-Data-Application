@@ -31,7 +31,7 @@ public:
     int getHeight(AVLNode *node);
     void updateHeight(AVLNode* node);
     int getBalance(AVLNode *node);
-    void searchNode(int id);
+    bool searchNode(int id);
     AVLNode* minValueNode(AVLNode* node);
     void solveViolation(AVLNode* node);
     void leftRotation(AVLNode *v);
