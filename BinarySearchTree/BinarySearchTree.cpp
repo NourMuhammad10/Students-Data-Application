@@ -15,19 +15,6 @@ BinarySearchTree::BinarySearchTree() {
     root = nullptr;
 }
 
-void BinarySearchTree::destroyRecursive(Node *node) {
-    ///Time Complexity O(N)
-    if (node)
-    {
-        destroyRecursive(node->left);
-        destroyRecursive(node->right);
-        delete node;
-    }
-}
-
-BinarySearchTree::~BinarySearchTree() {
-    destroyRecursive(root);
-}
 
 Node *BinarySearchTree::getRoot() {
     ///Time Complexity O(1)
@@ -69,16 +56,16 @@ Node *BinarySearchTree::searchNode(Node *node, int  id) {
         return searchNode(node->right, id);
     }
 }
-Student BinarySearchTree::search(int id) {
+bool BinarySearchTree::search(int id) {
     ///Time Complexity O(h), h stands for height of the tree
     Node* node = searchNode(root, id);
     Student std =  Student();
     if (node == nullptr) {
-       cout<<"Data not found"<<endl;
-       return std;
+       cout << "Student not found." << endl;
     }
     else {
-        return node->data;
+        cout << "Student is found." << endl;
+        cout << node->data;
     }
 }
 Node* BinarySearchTree:: findMin(Node* node) {
@@ -139,7 +126,7 @@ void BinarySearchTree::inorder(Node *r) {
     ///Time Complexity O(N)
     if(r != nullptr){
         inorder(r->left);
-        cout<<r->data<<" ";
+        cout<<r->data<<"\n";
         inorder(r->right);
     }
 }

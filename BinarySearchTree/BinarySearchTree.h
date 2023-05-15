@@ -1,6 +1,6 @@
 #ifndef STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
 #define STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
-#include"..\Student\Student.h"
+#include"../Student/Student.h"
 #include<bits/stdc++.h>
 using namespace std;
 class Node{
@@ -16,13 +16,11 @@ class BinarySearchTree {
     Node* root;
 public:
     BinarySearchTree();
-    void destroyRecursive(Node* node);
-    ~BinarySearchTree();
     Node* getRoot();
     Node* insert (Node* node, Student el);
     void insert(const Student& el);
     Node *searchNode(Node *node, int id);
-    Student search(int id);
+    bool search(int id);
     Node* findMin(Node* node);
     Node *deleteNode(Node *node, int id);
     void remove(int id);

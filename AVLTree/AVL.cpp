@@ -208,7 +208,7 @@ bool AVL::searchNode(int id){
         return false;
     } else {
         cout << "Student is found.\n";
-        cout << current->data.getId();
+        cout << current->data;
         return true;
     }
 }
