@@ -99,8 +99,10 @@ void AVL::deleteNode(int id) {
         if (current->leftChild == nullptr || current->rightChild == nullptr) {
             AVLNode *temp;
             if (current->leftChild == nullptr) {
+                temp2 = current;
                 temp = current->rightChild;
             } else {
+                temp2 = current;
                 temp = current->leftChild;
             }
 
@@ -114,7 +116,6 @@ void AVL::deleteNode(int id) {
                     current->parent->leftChild = nullptr;
                 }
             } else {
-                temp2 = temp->parent;
                 temp->parent = current->parent;
                 *current = *temp;
             }
@@ -191,7 +192,7 @@ void AVL::solveViolation(AVLNode *temp) {
     }
 }
 
-void AVL::searchNode(int id){
+bool AVL::searchNode(int id){
     AVLNode *current = root;
 
     while (current != nullptr && current->data.getId() != id) {
@@ -203,9 +204,12 @@ void AVL::searchNode(int id){
         }
     }
     if (current == nullptr) {
-        cout << "Key " << id << " not found in the provided AVL.\n";
+        cout << "Student is not found.\n";
+        return false;
     } else {
-        cout << "key is found\n";
+        cout << "Student is found.\n";
+        cout << current->data.getId();
+        return true;
     }
 }
 
