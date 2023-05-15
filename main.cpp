@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include "BinarySearchTree/BinarySearchTree.cpp"
+#include "BinarySearchTree/BinarySearchTree.h"
 #include "AVLTree/AVL.h"
 #include "MinHeap/MinHeap.h"
 #include "MaxHeap/MaxHeap.h"
@@ -7,6 +7,7 @@
 using namespace std;
 
 void displayMainMenu();
+void BSTMenu(BinarySearchTree studentsData);
 void BSTMenu(BinarySearchTree Student);
 void AVLMenu(AVL Student);
 void MaxHeapMenu(MaxHeap maxHeapStudent);
@@ -19,6 +20,7 @@ int main(){
 void displayMainMenu(){
     LoadFile studentData;
     vector<Student> students = studentData.loadFile();
+
     int choice;
     cout << "\n\nChoose Data Structure" << endl;
     cout << "1. BST \n2. AVL\n3. Min Heap\n4. Max Heap\n5. Exit Program\n";
@@ -27,10 +29,11 @@ void displayMainMenu(){
     switch (choice) {
         case 1:
         {
-            BinarySearchTree<Student> studentsBST;
+            BinarySearchTree studentsBST;
             for(Student student : students){
                 studentsBST.insert(student);
             }
+            BSTMenu(studentsBST);
             return;
         }
         case 2:
@@ -63,12 +66,13 @@ void displayMainMenu(){
         case 5:
         {
             cout<<"Thank you for using our Student data application!"<<endl;
-            break;
+            return;
         }
         default:
         {
             cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
             displayMainMenu();
+            return;
         }
     }
 }
@@ -90,7 +94,8 @@ void BSTMenu(BinarySearchTree BSTstudents){
             cout << "id: ";
             cin >> id;
             cout << "Name: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin, name);
             cout << "GPA: ";
             cin >> gpa;
             cout << "Department: ";
@@ -98,7 +103,7 @@ void BSTMenu(BinarySearchTree BSTstudents){
             Student stud(id, name, gpa, department);
             BSTstudents.insert(stud);
             cout << "\n The student is added.\n";
-            AVLMenu(BSTstudents);
+            BSTMenu(BSTstudents);
             return;
         }
         case 2:
@@ -108,6 +113,7 @@ void BSTMenu(BinarySearchTree BSTstudents){
             cin >> id;
             if(BSTstudents.search(id)){
                 BSTstudents.remove(id);
+                cout << "Student is deleted. \n";
             }
             BSTMenu(BSTstudents);
             return;
@@ -117,14 +123,14 @@ void BSTMenu(BinarySearchTree BSTstudents){
             int id;
             cout << "id: ";
             cin >> id;
-            BSTstudents.searchNode(id);
-            AVLMenu(BSTstudents);
+            BSTstudents.search(id);
+            BSTMenu(BSTstudents);
             return;
         }
         case 4:
         {
-            BSTstudents.inOrder(BSTstudents.getRoot());
-            AVLMenu(BSTstudents);
+            BSTstudents.inorder(BSTstudents.getRoot());
+            BSTMenu(BSTstudents);
             return;
         }
         case 5:
@@ -136,6 +142,7 @@ void BSTMenu(BinarySearchTree BSTstudents){
         {
             cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
             BSTMenu(BSTstudents);
+            return;
         }
     }
 }
@@ -158,7 +165,8 @@ void AVLMenu(AVL AVLstudents){
             cout << "id: ";
             cin >> id;
             cout << "Name: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin, name);
             cout << "GPA: ";
             cin >> gpa;
             cout << "Department: ";
@@ -176,6 +184,7 @@ void AVLMenu(AVL AVLstudents){
             cin >> id;
             if(AVLstudents.searchNode(id)){
                 AVLstudents.deleteNode(id);
+                cout << "Student is deleted. \n";
             }
             AVLMenu(AVLstudents);
             return;
@@ -204,6 +213,7 @@ void AVLMenu(AVL AVLstudents){
         {
             cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
             AVLMenu(AVLstudents);
+            return;
         }
     }
 }
@@ -224,7 +234,8 @@ void MinHeapMenu(MinHeap minHeapStudent){
             cout << "id: ";
             cin >> id;
             cout << "Name: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin, name);
             cout << "GPA: ";
             cin >> gpa;
             cout << "Department: ";
@@ -269,7 +280,8 @@ void MaxHeapMenu(MaxHeap maxHeapStudent){
             cout << "id: ";
             cin >> id;
             cout << "Name: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin, name);
             cout << "GPA: ";
             cin >> gpa;
             cout << "Department: ";
