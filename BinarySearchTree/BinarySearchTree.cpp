@@ -3,22 +3,19 @@
 using namespace std;
 
 
-template<class T>
-Node<T>::Node(T data) {
+Node::Node(Student data) {
     ///Time Complexity O(1)
     this->data = data;
     left = nullptr;
     right = nullptr;
 }
 
-template<class T>
-BinarySearchTree<T>::BinarySearchTree() {
+BinarySearchTree::BinarySearchTree() {
     ///Time Complexity O(1)
     root = nullptr;
 }
 
-template<class T>
-void BinarySearchTree<T>::destroyRecursive(Node<T> *node) {
+void BinarySearchTree::destroyRecursive(Node *node) {
     ///Time Complexity O(N)
     if (node)
     {
@@ -28,22 +25,19 @@ void BinarySearchTree<T>::destroyRecursive(Node<T> *node) {
     }
 }
 
-template<class T>
-BinarySearchTree<T>::~BinarySearchTree() {
+BinarySearchTree::~BinarySearchTree() {
     destroyRecursive(root);
 }
 
-template<class T>
-Node<T> *BinarySearchTree<T>::getRoot() {
+Node *BinarySearchTree::getRoot() {
     ///Time Complexity O(1)
     return root;
 }
 
-template<class T>
-Node<T>* BinarySearchTree<T>::insert(Node<T>* node, T el) {
+Node* BinarySearchTree::insert(Node* node, Student el) {
     ///Time Complexity O(h), h stands for height of the tree
     if(node == nullptr){
-        Node<T> * newnode = new Node<T>(el);
+        Node * newnode = new Node(el);
         node = newnode; //left or right of the appropriate node to insert at
     }
     else if(el < node->data){
@@ -55,58 +49,55 @@ Node<T>* BinarySearchTree<T>::insert(Node<T>* node, T el) {
     return node; //placed here as the returned node is the root (recursion process)
 }
 
-template<class T>
-void BinarySearchTree<T>::insert(const T &el) {
+void BinarySearchTree::insert(const Student &el) {
     ///Time Complexity O(h), h stands for height of the tree
     root = insert(root, el);
 }
 
-template<class T>
-Node<T> *BinarySearchTree<T>::searchNode(Node<T> *node, T data) {
+Node *BinarySearchTree::searchNode(Node *node, int  id) {
     ///Time Complexity O(h), h stands for height of the tree
     if (node == nullptr) {
         return nullptr;
     }
-    else if (data == node->data) {
+    else if (id == node->data.getId()) {
         return node;
     }
-    else if (data < node->data) {
-        return searchNode(node->left, data);
+    else if (id < node->data.getId()) {
+        return searchNode(node->left, id);
     }
     else {
-        return searchNode(node->right, data);
+        return searchNode(node->right, id);
     }
 }
-template<class T>
-T BinarySearchTree<T>::search(T data) {
+Student BinarySearchTree::search(int id) {
     ///Time Complexity O(h), h stands for height of the tree
-    Node<T>* node = searchNode(root, data);
+    Node* node = searchNode(root, id);
+    Student std =  Student();
     if (node == nullptr) {
        cout<<"Data not found"<<endl;
+       return std;
     }
     else {
         return node->data;
     }
 }
-template<class T>
-Node<T>* BinarySearchTree<T>:: findMin(Node<T>* node) {
+Node* BinarySearchTree:: findMin(Node* node) {
     ///Time Complexity O(h), h stands for height of the tree
     while (node->left != nullptr) {
         node = node->left;
     }
     return node;
 }
-template<class T>
-Node<T>* BinarySearchTree<T>::deleteNode(Node<T> *node, T data) {
+Node* BinarySearchTree::deleteNode(Node *node, int  id) {
     ///Time Complexity O(N)
     if (node == nullptr){
         return nullptr;
     }
-    else if (data < node->data) {
-        node->left = deleteNode(node->left, data);
+    else if (id < node->data.getId()) {
+        node->left = deleteNode(node->left, id);
     }
-    else if (data > node->data) {
-        node->right = deleteNode(node->right, data);
+    else if (id > node->data.getId()) {
+        node->right = deleteNode(node->right, id);
     }
     else {
         //Node has no children
@@ -116,36 +107,35 @@ Node<T>* BinarySearchTree<T>::deleteNode(Node<T> *node, T data) {
         }
         //Node has one child on the right
         else if (node->left == nullptr) {
-            Node<T>* temp = node;
+            Node* temp = node;
             node = node->right;
             delete temp;
         }
         //Node has one child on the left
         else if (node->right == nullptr) {
-            Node<T>* temp = node;
+            Node* temp = node;
             node = node->left;
             delete temp;
         }
         // Node has two children
         else {
-            Node<T>* minRight = findMin(node->right);
+            Node* minRight = findMin(node->right);
             node->data = minRight->data;
             //uses the function again to search for the position of the minright and delete it
-            node->right = deleteNode(node->right, minRight->data);
+            node->right = deleteNode(node->right, minRight->data.getId());
         }
     }
     return node;
 }
 
 
-template<class T>
-void BinarySearchTree<T>::remove(T data) {
+void BinarySearchTree::remove(int id) {
     ///Time Complexity O(N)
-    root = deleteNode(root, data);
+    root = deleteNode(root, id);
 }
 
-template<class T>
-void BinarySearchTree<T>::inorder(Node<T> *r) {
+
+void BinarySearchTree::inorder(Node *r) {
     ///Time Complexity O(N)
     if(r != nullptr){
         inorder(r->left);
@@ -154,19 +144,17 @@ void BinarySearchTree<T>::inorder(Node<T> *r) {
     }
 }
 
-template<class T>
-void BinarySearchTree<T>::preorder(Node<T>* r){
+void BinarySearchTree::preorder(Node* r){
     ///Time Complexity O(N)
     if(r==nullptr){
         return;
     }
-    cout<<r->data<<" ";
+    cout<<r->data<<endl;
     preorder(r->left);
     preorder(r->right);
 }
 
-template<class T>
-void BinarySearchTree<T>::postorder(Node<T> *r) {
+void BinarySearchTree::postorder(Node *r) {
     ///Time Complexity O(N)
     if( r != nullptr){
         postorder(r->left);
@@ -174,8 +162,7 @@ void BinarySearchTree<T>::postorder(Node<T> *r) {
         cout<<r->data<<" ";
     }
 }
-//template<class T>
-//void BinarySearchTree<T>:: inOrderTraversal(Node<T>* root, vector<T>& sorted) {
+////void BinarySearchTree<T>:: inOrderTraversal(Node* root, vector<T>& sorted) {
 //    if (root == nullptr) {
 //        return;
 //    }
@@ -184,8 +171,7 @@ void BinarySearchTree<T>::postorder(Node<T> *r) {
 //    sorted.push_back(root->data);
 //    inOrderTraversal(root->right, sorted);
 //}
-//template<class T>
-//vector<T>  BinarySearchTree<T>::sortBinarySearchTree(Node<T>* root) {
+////vector<T>  BinarySearchTree<T>::sortBinarySearchTree(Node* root) {
 //    vector<T> sorted;
 //    inOrderTraversal(root, sorted);
 //    return sorted;

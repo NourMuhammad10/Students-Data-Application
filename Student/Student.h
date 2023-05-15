@@ -10,7 +10,9 @@ class Student {
     float gpa;
     string department;
 public:
-    Student(){}
+    Student(){
+        id = -1;
+    }
     Student(int id, string name, float gpa, string department);
     void setId(int id);
     void setName(string name);
