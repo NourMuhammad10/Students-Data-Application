@@ -35,10 +35,6 @@ string Student::getDepartment() const {
     return department;
 }
 
-void Student::displayStudentData() {
-    cout << "[" << id << ", " << name << ", " << gpa << ", " << department << "]";
-}
-
 bool Student::operator<(const Student &other) const {
     return id < other.getId();
 }

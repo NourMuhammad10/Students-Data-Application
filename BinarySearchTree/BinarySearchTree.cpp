@@ -30,8 +30,10 @@ Node* BinarySearchTree::insert(Node* node, Student el) {
     else if(el < node->data){
         node->left = insert(node->left, el);
     }
-    else{
+    else if(el > node->data){
         node->right = insert(node->right, el);
+    } else {
+        return nullptr;
     }
     return node; //placed here as the returned node is the root (recursion process)
 }
@@ -56,17 +58,15 @@ Node *BinarySearchTree::searchNode(Node *node, int  id) {
         return searchNode(node->right, id);
     }
 }
-bool BinarySearchTree::search(int id) {
+Node* BinarySearchTree::search(int id) {
     ///Time Complexity O(h), h stands for height of the tree
     Node* node = searchNode(root, id);
     Student std =  Student();
-    if (node == nullptr) {
-       cout << "Student not found." << endl;
-    }
-    else {
+    if (node != nullptr) {
         cout << "Student is found." << endl;
         cout << node->data;
     }
+    return node;
 }
 Node* BinarySearchTree:: findMin(Node* node) {
     ///Time Complexity O(h), h stands for height of the tree

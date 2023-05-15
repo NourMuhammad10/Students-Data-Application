@@ -192,7 +192,7 @@ void AVL::solveViolation(AVLNode *temp) {
     }
 }
 
-bool AVL::searchNode(int id){
+AVLNode* AVL::searchNode(int id){
     AVLNode *current = root;
 
     while (current != nullptr && current->data.getId() != id) {
@@ -203,14 +203,11 @@ bool AVL::searchNode(int id){
             current = current->rightChild;
         }
     }
-    if (current == nullptr) {
-        cout << "Student is not found.\n";
-        return false;
-    } else {
+    if (current != nullptr) {
         cout << "Student is found.\n";
         cout << current->data;
-        return true;
     }
+    return current;
 }
 
 int AVL::getHeight(AVLNode *node) {
