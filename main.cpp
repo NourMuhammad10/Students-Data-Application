@@ -1,9 +1,8 @@
 #include<bits/stdc++.h>
 #include "BinarySearchTree/BinarySearchTree.cpp"
-#include "AVLTree/AVL.cpp"
+#include "AVLTree/AVL.h"
 #include "MinHeap/MinHeap.cpp"
-#include "Student/Student.h"
-#include"LoadFile.cpp"
+#include "LoadFile.cpp"
 using namespace std;
 
 void displayMainMenu();
@@ -31,32 +30,40 @@ int main(){
 
 
 
-    AVL<int> tree;
-//    tree.insert(10);
-//    tree.insert(20);
-//    tree.insert(5);
-//    tree.insert(2);
-//    tree.insert(9);
-//    tree.insert(6);
-//    tree.deleteNode(5);
+    AVL tree;
+    Student student1(1, "merna", 3.73, "AI");
+    Student student2(2, "merna2", 3.73, "IS");
+    Student student3(3, "merna3", 3.73, "CS");
+    Student student4(4, "merna4", 3.73, "DS");
+    Student student5(5, "merna5", 3.73, "IT");
+    Student student6(6, "merna6", 3.73, "AI");
+    Student student7(7, "merna7", 3.73, "AI");
+    Student student8(8, "merna8", 3.73, "CS");
+    Student student9(9, "merna9", 3.73, "CS");
+    Student student10(10, "merna10", 3.73, "CS");
+    Student student11(11, "merna11", 3.73, "CS");
+    Student student12(12, "merna12", 3.73, "CS");
+    Student student13(13, "merna13", 3.73, "CS");
 
-    tree.insert(40);
-    tree.insert(30);
-    tree.insert(50);
-    tree.insert(25);
-    tree.insert(35);
-    tree.insert(15);
-    tree.insert(28);
-    tree.insert(45);
-    tree.insert(60);
-    tree.insert(55);
-    tree.insert(70);
-    tree.deleteNode(35);
-    tree.deleteNode(40);
-    tree.deleteNode(28);
-    tree.deleteNode(25);
+    tree.insert(student3);
+    tree.insert(student1);
+    tree.insert(student8);
+    tree.insert(student5);
+    tree.insert(student2);
+    tree.insert(student4);
+    tree.insert(student7);
+    tree.insert(student13);
+    tree.insert(student10);
+    tree.insert(student12);
+    tree.insert(student11);
     tree.pre_Order(tree.getRoot());
-    tree.deleteNode(50);
+    tree.deleteNode(12);
+    tree.deleteNode(13);
+    tree.deleteNode(5);
+    tree.deleteNode(8);
+    cout << endl;
+    tree.pre_Order(tree.getRoot());
+
 }
 
 void displayMainMenu(){

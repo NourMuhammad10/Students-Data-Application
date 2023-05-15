@@ -1,8 +1,9 @@
 #ifndef STUDENTS_DATA_APPLICATION_AVL_H
 #define STUDENTS_DATA_APPLICATION_AVL_H
-template<class T>
+#include "../Student/Student.h"
+
 struct AVLNode{
-    T data;
+    Student data;
     int height;
     AVLNode* leftChild;
     AVLNode* rightChild;
@@ -12,34 +13,32 @@ struct AVLNode{
         leftChild = nullptr;
         parent = nullptr;
         height = 1;
-//        this->data = data;
     }
 };
 
-template<class T>
 class AVL {
 private:
-    AVLNode<T>* root = nullptr;
+    AVLNode* root = nullptr;
 public:
     AVL();
-    void insert(T val);
-    void deleteNode(T val);
-    AVLNode<T>* getRoot();
-    void setRoot(AVLNode<T>* rt){
+    void insert(const Student& student);
+    void deleteNode(int id);
+    AVLNode* getRoot();
+    void setRoot(AVLNode* rt){
         this->root = rt;
     }
     int max(int a, int b);
-    int getHeight(AVLNode<T> *node);
-    void updateHeight(AVLNode<T>* node);
-    int getBalance(AVLNode<T> *node);
-    void searchNode(T val);
-    AVLNode<T>* minValueNode(AVLNode<T>* node);
-    void solveViolation(AVLNode<T>* node, T val);
-    void leftRotation(AVLNode<T> *v);
-    void rightRotation(AVLNode<T> *v);
-    void pre_Order(AVLNode<T>* node);
-    void post_Order(AVLNode<T>* node);
-    void in_Order(AVLNode<T>* node);
+    int getHeight(AVLNode *node);
+    void updateHeight(AVLNode* node);
+    int getBalance(AVLNode *node);
+    void searchNode(int id);
+    AVLNode* minValueNode(AVLNode* node);
+    void solveViolation(AVLNode* node);
+    void leftRotation(AVLNode *v);
+    void rightRotation(AVLNode *v);
+    void pre_Order(AVLNode* node);
+    void post_Order(AVLNode* node);
+    void in_Order(AVLNode* node);
 };
 
 //1. Add a student (write the id “from 0 to 100”, name, GPA, and department)
