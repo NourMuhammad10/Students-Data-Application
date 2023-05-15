@@ -7,305 +7,385 @@
 using namespace std;
 
 void displayMainMenu();
-void BSTMenu(BinarySearchTree studentsData);
-void BSTMenu(BinarySearchTree Student);
-void AVLMenu(AVL Student);
+void BSTMenu(BinarySearchTree BSTstudents);
+void AVLMenu(AVL AVLstudents);
 void MaxHeapMenu(MaxHeap maxHeapStudent);
 void MinHeapMenu(MinHeap minHeapStudent);
 
+map<string, int> departmentMap;
+set<string> departmentSet;
+int cnt;
+
 int main(){
     displayMainMenu();
+    return 0;
 }
 
 void displayMainMenu(){
     LoadFile studentData;
     vector<Student> students = studentData.loadFile();
-
-    int choice;
-    cout << "\n\nChoose Data Structure" << endl;
-    cout << "1. BST \n2. AVL\n3. Min Heap\n4. Max Heap\n5. Exit Program\n";
-    cout << "Your choice: ";
-    cin >> choice;
-    switch (choice) {
-        case 1:
-        {
-            BinarySearchTree studentsBST;
-            for(Student student : students){
-                studentsBST.insert(student);
+    while(true){
+        cnt = 0;
+        departmentMap.clear();
+        departmentSet.clear();
+        for (const Student& stud: students) {
+            departmentMap[stud.getDepartment()]++;
+            departmentSet.insert(stud.getDepartment());
+            cnt++;
+        }
+        int choice;
+        cout << "\nChoose Data Structure" << endl;
+        cout << "1. BST \n2. AVL\n3. Min Heap\n4. Max Heap\n5. Exit Program\n";
+        cout << "Your choice: ";
+        cin >> choice;
+        bool flag = false;
+        switch (choice) {
+            case 1:
+            {
+                BinarySearchTree studentsBST;
+                for(const Student& student : students){
+                    studentsBST.insert(student);
+                }
+                BSTMenu(studentsBST);
+                break;
             }
-            BSTMenu(studentsBST);
-            return;
-        }
-        case 2:
-        {
-            AVL studentsAVL;
-            for(Student student : students){
-                studentsAVL.insert(student);
+            case 2:
+            {
+                AVL studentsAVL;
+                for(const Student& student : students){
+                    studentsAVL.insert(student);
+                }
+                AVLMenu(studentsAVL);
+                break;
             }
-            AVLMenu(studentsAVL);
-            return;
-        }
-        case 3:
-        {
-            MinHeap studentsMinHeap;
-            for(Student student : students){
-                studentsMinHeap.insert(student);
+            case 3:
+            {
+                MinHeap studentsMinHeap;
+                for(const Student& student : students){
+                    studentsMinHeap.insert(student);
+                }
+                MinHeapMenu(studentsMinHeap);
+                break;
             }
-            MinHeapMenu(studentsMinHeap);
-            return;
-        }
-        case 4:
-        {
-            MaxHeap studentsMaxHeap;
-            for(Student student : students){
-                studentsMaxHeap.insert(student);
+            case 4:
+            {
+                MaxHeap studentsMaxHeap;
+                for(const Student& student : students){
+                    studentsMaxHeap.insert(student);
+                }
+                MaxHeapMenu(studentsMaxHeap);
+                break;
             }
-            MaxHeapMenu(studentsMaxHeap);
-            return;
+            case 5:
+            {
+                cout<<"Thank you for using our Student data application!"<<endl;
+                flag = true;
+                break;
+            }
+            default:
+            {
+                cout << "Invalid choice, please make sure you enter one of the available choices!" << endl;
+                break;
+            }
         }
-        case 5:
-        {
-            cout<<"Thank you for using our Student data application!"<<endl;
-            return;
-        }
-        default:
-        {
-            cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
-            displayMainMenu();
+        if(flag){
             return;
         }
     }
 }
 
 void BSTMenu(BinarySearchTree BSTstudents){
-    LoadFile studentData;
-    vector<Student> students = studentData.loadFile();
-    int choice;
-    cout << "\n\nChoose one of the following options:" << endl;
-    cout << "1. Add Student\n2. Remove Student\n3. Search Student\n4. Print All (sorted by id)\n5. Return to main menu\n";
-    cout << "Enter number of option: ";
-    cin >> choice;
-    switch(choice){
-        case 1:
-        {
-            int id;
-            string name, department;
-            double gpa;
-            cout << "id: ";
-            cin >> id;
-            cout << "Name: ";
-            cin.ignore();
-            getline(cin, name);
-            cout << "GPA: ";
-            cin >> gpa;
-            cout << "Department: ";
-            cin >> department;
-            Student stud(id, name, gpa, department);
-            BSTstudents.insert(stud);
-            cout << "\n The student is added.\n";
-            BSTMenu(BSTstudents);
-            return;
-        }
-        case 2:
-        {
-            int id;
-            cout << "id: ";
-            cin >> id;
-            if(BSTstudents.search(id)){
-                BSTstudents.remove(id);
-                cout << "Student is deleted. \n";
+    bool flag = false;
+    while(true) {
+        int choice;
+        cout << "\n\nChoose one of the following options:" << endl;
+        cout << "1. Add Student\n2. Remove Student\n3. Search Student\n4. Print All (sorted by id)\n5. Return to main menu\n";
+        cout << "Enter number of option: ";
+        cin >> choice;
+        switch (choice) {
+            case 1: {
+                int id;
+                string name, department;
+                float gpa;
+                cout << "id: ";
+                cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                cout << "Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "GPA: ";
+                cin >> gpa;
+                while(gpa < 0 || gpa > 4.0){
+                    cout << "Invalid GPA, try again: ";
+                    cin >> gpa;
+                }
+                cout << "Department: ";
+                cin >> department;
+                cout << "\n";
+                Student stud(id, name, gpa, department);
+                if(BSTstudents.search(id) == nullptr){
+                    BSTstudents.insert(stud);
+                    cout << "\nThe student is added.\n";
+                    departmentMap[department]++;
+                    cnt++;
+                } else {
+                    cout << "\nThe student already exists, cannot be added.\n";
+                }
+                break;
             }
-            BSTMenu(BSTstudents);
-            return;
+            case 2: {
+                int id;
+                cout << "id: ";
+                cin >> id;
+                if (BSTstudents.search(id) != nullptr) {
+                    BSTstudents.remove(id);
+                    cout << "Student is deleted. \n";
+                } else {
+                    cout << "Student not found." << endl;
+                }
+                break;
+            }
+            case 3: {
+                int id;
+                cout << "id: ";
+                cin >> id;
+                BSTstudents.search(id);
+                break;
+            }
+            case 4: {
+                BSTstudents.inorder(BSTstudents.getRoot());
+                cout << "Total Students Number: " << cnt << "\n";
+                cout << "\nStudents per Departments: \n";
+                for (const string& set: departmentSet) {
+                    cout << set << ": " << departmentMap[set] << "\n";
+                }
+                break;
+            }
+            case 5: {
+                flag = true;
+                break;
+            }
+            default: {
+                cout << "Invalid choice, please make sure you enter one of the available choices!" << endl;
+                break;
+            }
         }
-        case 3:
-        {
-            int id;
-            cout << "id: ";
-            cin >> id;
-            BSTstudents.search(id);
-            BSTMenu(BSTstudents);
-            return;
-        }
-        case 4:
-        {
-            BSTstudents.inorder(BSTstudents.getRoot());
-            BSTMenu(BSTstudents);
-            return;
-        }
-        case 5:
-        {
-            displayMainMenu();
-            return;
-        }
-        default:
-        {
-            cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
-            BSTMenu(BSTstudents);
-            return;
+        if(flag){
+            break;
         }
     }
 }
 
 
 void AVLMenu(AVL AVLstudents){
-    LoadFile studentData;
-    vector<Student> students = studentData.loadFile();
-    int choice;
-    cout << "\n\nChoose one of the following options:" << endl;
-    cout << "1. Add Student\n2. Remove Student\n3. Search Student\n4. Print All (sorted by id)\n5. Return to main menu\n";
-    cout << "Enter number of option: ";
-    cin >> choice;
-    switch(choice){
-        case 1:
-        {
-            int id;
-            string name, department;
-            double gpa;
-            cout << "id: ";
-            cin >> id;
-            cout << "Name: ";
-            cin.ignore();
-            getline(cin, name);
-            cout << "GPA: ";
-            cin >> gpa;
-            cout << "Department: ";
-            cin >> department;
-            Student stud(id, name, gpa, department);
-            AVLstudents.insert(stud);
-            cout << "\n The student is added.\n";
-            AVLMenu(AVLstudents);
-            return;
-        }
-        case 2:
-        {
-            int id;
-            cout << "id: ";
-            cin >> id;
-            if(AVLstudents.searchNode(id)){
-                AVLstudents.deleteNode(id);
-                cout << "Student is deleted. \n";
+    bool flag = false;
+    while(true) {
+        int choice;
+        cout << "\n\nChoose one of the following options:" << endl;
+        cout << "1. Add Student\n2. Remove Student\n3. Search Student\n4. Print All (sorted by id)\n5. Return to main menu\n";
+        cout << "Enter number of option: ";
+        cin >> choice;
+        switch (choice) {
+            case 1: {
+                int id;
+                string name, department;
+                float gpa;
+                cout << "id: ";
+                cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                cout << "Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "GPA: ";
+                cin >> gpa;
+                while(gpa < 0 || gpa > 4.0){
+                    cout << "Invalid GPA, try again: ";
+                    cin >> gpa;
+                }
+                cout << "Department: ";
+                cin >> department;
+                cout << "\n";
+                Student stud(id, name, gpa, department);
+                if(AVLstudents.searchNode(id) == nullptr){
+                    AVLstudents.insert(stud);
+                    cout << "\nThe student is added.\n";
+                    departmentMap[department]++;
+                    cnt++;
+                } else {
+                    cout << "\nThe student already exists, cannot be added.\n";
+                }
+                break;
             }
-            AVLMenu(AVLstudents);
-            return;
+            case 2: {
+                int id;
+                cout << "id: ";
+                cin >> id;
+                if (AVLstudents.searchNode(id)) {
+                    AVLstudents.deleteNode(id);
+                    cout << "Student is deleted. \n";
+                } else {
+                    cout << "Student is not found.\n";
+                }
+                break;
+            }
+            case 3: {
+                int id;
+                cout << "id: ";
+                cin >> id;
+                AVLstudents.searchNode(id);
+                break;
+            }
+            case 4: {
+                AVLstudents.in_Order(AVLstudents.getRoot());
+                cout << "Total Students Number: " << cnt << "\n";
+                cout << "\nStudents per Departments: \n";
+                for (const string& set: departmentSet) {
+                    cout << set << ": " << departmentMap[set] << "\n";
+                }
+                break;
+            }
+            case 5: {
+                flag = true;
+                break;
+            }
+            default: {
+                cout << "Invalid choice, please make sure you enter one of the available choices!" << endl;
+                break;
+            }
         }
-        case 3:
-        {
-            int id;
-            cout << "id: ";
-            cin >> id;
-            AVLstudents.searchNode(id);
-            AVLMenu(AVLstudents);
-            return;
-        }
-        case 4:
-        {
-            AVLstudents.in_Order(AVLstudents.getRoot());
-            AVLMenu(AVLstudents);
-            return;
-        }
-        case 5:
-        {
-            displayMainMenu();
-            return;
-        }
-        default:
-        {
-            cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
-            AVLMenu(AVLstudents);
-            return;
+        if(flag){
+            break;
         }
     }
 }
 
 void MinHeapMenu(MinHeap minHeapStudent){
-    LoadFile studentData;
-    vector<Student> students = studentData.loadFile();
-    int choice;
-    cout << "\n\nChoose one of the following options:" << endl;
-    cout << "1. Add Student\n2. Print All (sorted by gpa)\n3. Return to main menu\n";
-    cout << "Enter number of option: ";
-    cin >> choice;
-    switch(choice) {
-        case 1: {
-            int id;
-            string name, department;
-            double gpa;
-            cout << "id: ";
-            cin >> id;
-            cout << "Name: ";
-            cin.ignore();
-            getline(cin, name);
-            cout << "GPA: ";
-            cin >> gpa;
-            cout << "Department: ";
-            cin >> department;
-            Student stud(id, name, gpa, department);
-            minHeapStudent.insert(stud);
-            cout << "\n The student is added.\n";
-            MinHeapMenu(minHeapStudent);
-            return;
+    bool flag = false;
+    while(true) {
+        int choice;
+        cout << "\n\nChoose one of the following options:" << endl;
+        cout << "1. Add Student\n2. Print All (sorted by gpa)\n3. Return to main menu\n";
+        cout << "Enter number of option: ";
+        cin >> choice;
+        switch (choice) {
+            case 1: {
+                int id;
+                string name, department;
+                float gpa;
+                cout << "id: ";
+                cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                cout << "Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "GPA: ";
+                cin >> gpa;
+                while(gpa < 0 || gpa > 4.0){
+                    cout << "Invalid GPA, try again: ";
+                    cin >> gpa;
+                }
+                cout << "Department: ";
+                cin >> department;
+                cout << "\n";
+                departmentMap[department]++;
+                Student stud(id, name, gpa, department);
+                minHeapStudent.insert(stud);
+                cout << "\n The student is added.\n";
+                cnt++;
+                break;
+            }
+            case 2: {
+                minHeapStudent.heapSort();
+                cout << "Total Students Number: " << cnt << "\n";
+                cout << "\nStudents per Departments: \n";
+                for (const string& set: departmentSet) {
+                    cout << set << ": " << departmentMap[set] << "\n";
+                }
+                break;
+            }
+            case 3: {
+                flag = true;
+                break;
+            }
+            default: {
+                cout << "Invalid choice, please make sure you enter one of the available choices!" << endl;
+                break;
+            }
         }
-        case 2: {
-            minHeapStudent.heapSort();
-            MinHeapMenu(minHeapStudent);
-            return;
-        }
-        case 3: {
-            displayMainMenu();
-            return;
-        }
-        default:
-        {
-            cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
-            MinHeapMenu(minHeapStudent);
-            return;
+        if(flag){
+            break;
         }
     }
 }
 
 void MaxHeapMenu(MaxHeap maxHeapStudent){
-    LoadFile studentData;
-    vector<Student> students = studentData.loadFile();
-    int choice;
-    cout << "\n\nChoose one of the following options:" << endl;
-    cout << "1. Add Student\n2. Print All (sorted by gpa)\n3. Return to main menu\n";
-    cout << "Enter number of option: ";
-    cin >> choice;
-    switch(choice) {
-        case 1: {
-            int id;
-            string name, department;
-            double gpa;
-            cout << "id: ";
-            cin >> id;
-            cout << "Name: ";
-            cin.ignore();
-            getline(cin, name);
-            cout << "GPA: ";
-            cin >> gpa;
-            cout << "Department: ";
-            cin >> department;
-            Student stud(id, name, gpa, department);
-            maxHeapStudent.insert(stud);
-            cout << "\n The student is added.\n";
-            MaxHeapMenu(maxHeapStudent);
-            return;
+    bool flag = false;
+    while(true){
+        int choice;
+        cout << "\n\nChoose one of the following options:" << endl;
+        cout << "1. Add Student\n2. Print All (sorted by gpa)\n3. Return to main menu\n";
+        cout << "Enter number of option: ";
+        cin >> choice;
+        switch(choice) {
+            case 1: {
+                int id;
+                string name, department;
+                float gpa;
+                cout << "id: ";
+                cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                cout << "Name: ";
+                cin.ignore();
+                getline(cin, name);
+                cout << "GPA: ";
+                cin >> gpa;
+                while(gpa < 0 || gpa > 4.0){
+                    cout << "Invalid GPA, try again: ";
+                    cin >> gpa;
+                }
+                cout << "Department: ";
+                cin >> department;
+                cout << "\n";
+                departmentMap[department]++;
+                Student stud(id, name, gpa, department);
+                maxHeapStudent.insert(stud);
+                cout << "\n The student is added.\n";
+                cnt++;
+                break;
+            }
+            case 2: {
+                maxHeapStudent.heapSort();
+                cout << "Total Students Number: " << cnt << "\n";
+                cout << "\nStudents per Departments: \n";
+                for (const string& set: departmentSet) {
+                    cout << set << ": " << departmentMap[set] << "\n";
+                }
+                break;
+            }
+            case 3: {
+                flag = true;
+                break;
+            }
+            default:
+            {
+                cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
+                break;
+            }
         }
-        case 2: {
-            maxHeapStudent.heapSort();
-            MaxHeapMenu(maxHeapStudent);
-            return;
-        }
-        case 3: {
-            displayMainMenu();
-            return;
-        }
-        default:
-        {
-            cout<<"Invalid choice, please make sure you enter one of the available choices!"<<endl;
-            MaxHeapMenu(maxHeapStudent);
-            return;
+        if(flag){
+            break;
         }
     }
 }
