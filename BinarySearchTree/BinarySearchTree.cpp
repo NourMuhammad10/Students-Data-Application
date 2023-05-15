@@ -15,19 +15,6 @@ BinarySearchTree::BinarySearchTree() {
     root = nullptr;
 }
 
-void BinarySearchTree::destroyRecursive(Node *node) {
-    ///Time Complexity O(N)
-    if (node)
-    {
-        destroyRecursive(node->left);
-        destroyRecursive(node->right);
-        delete node;
-    }
-}
-
-BinarySearchTree::~BinarySearchTree() {
-    destroyRecursive(root);
-}
 
 Node *BinarySearchTree::getRoot() {
     ///Time Complexity O(1)
