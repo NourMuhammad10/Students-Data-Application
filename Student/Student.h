@@ -24,6 +24,7 @@ public:
     bool operator<(const Student& other) const;
     bool operator>(const Student& other) const;
     bool operator==(const Student& other) const;
+    bool operator!=(const Student& other) const;
     friend ostream& operator<<(std::ostream& os, const Student& student);
 };
 
