@@ -8,4 +8,9 @@ add_executable(Students-Data-Application
         BinarySearchTree/BinarySearchTree.h
         main.cpp
         AVLTree/AVL.h
-        AVLTree/AVL.cpp)
+        AVLTree/AVL.cpp
+        Student/Student.cpp
+        Student/Student.h
+        LoadFile.cpp
+        MinHeap/MinHeap.cpp
+        MinHeap/MinHeap.h)
