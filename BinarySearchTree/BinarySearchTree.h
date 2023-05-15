@@ -1,38 +1,38 @@
 #ifndef STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
 #define STUDENTS_DATA_APPLICATION_BINARYSEARCHTREE_H
-
+#include"..\Student\Student.h"
 #include<bits/stdc++.h>
 using namespace std;
-template<class T>
 class Node{
 public:
-    T data;
+    Student data;
     Node* left;
     Node* right;
-    Node(T data);
+    Node(Student data);
 };
 
-template<class T>
+
 class BinarySearchTree {
-    Node<T>* root;
+    Node* root;
 public:
     BinarySearchTree();
-    void destroyRecursive(Node<T>* node);
+    void destroyRecursive(Node* node);
     ~BinarySearchTree();
-    Node<T>* getRoot();
-    Node<T>* insert (Node<T>* node, T el);
-    void insert(const T& el);
-    Node<T>* searchNode(Node<T>* node, T data);
-    T search(T data);
-    Node<T>* findMin(Node<T>* node);
-    Node<T>* deleteNode(Node<T>* node, T data);
-    void remove(T data);
-    void inorder(Node<T>* r);
-    void preorder(Node<T>* r);
-    void postorder(Node<T>* r);
+    Node* getRoot();
+    Node* insert (Node* node, Student el);
+    void insert(const Student& el);
+    Node *searchNode(Node *node, int id);
+    Student search(int id);
+    Node* findMin(Node* node);
+    Node *deleteNode(Node *node, int id);
+    void remove(int id);
+    void inorder(Node* r);
+    void preorder(Node* r);
+    void postorder(Node* r);
 //    //For sorting the BST
-//    void inOrderTraversal(Node<T>* root, vector<T>& sorted);
-//    vector<T> sortBinarySearchTree(Node<T>* root);
+//    void inOrderTraversal(Node* root, vector<T>& sorted);
+//    vector<T> sortBinarySearchTree(Node* root);
+
 };
 
 
