@@ -20,7 +20,7 @@ public:
     Node* insert (Node* node, Student el);
     void insert(const Student& el);
     Node *searchNode(Node *node, int id);
-    bool search(int id);
+    Node* search(int id);
     Node* findMin(Node* node);
     Node *deleteNode(Node *node, int id);
     void remove(int id);

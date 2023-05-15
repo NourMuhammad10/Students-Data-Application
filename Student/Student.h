@@ -10,9 +10,7 @@ class Student {
     float gpa;
     string department;
 public:
-    Student(){
-        id = -1;
-    }
+    Student(){}
     Student(int id, string name, float gpa, string department);
     void setId(int id);
     void setName(string name);
@@ -22,7 +20,6 @@ public:
     string getName()const;
     float getGpa() const;
     string getDepartment()const;
-    void displayStudentData();
     bool operator<(const Student& other) const;
     bool operator>(const Student& other) const;
     bool operator==(const Student& other) const;
