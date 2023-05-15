@@ -140,11 +140,18 @@ void BSTMenu(BinarySearchTree BSTstudents){
                 int id;
                 cout << "id: ";
                 cin >> id;
-                if (BSTstudents.search(id) != nullptr) {
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                Node* node = BSTstudents.search(id);
+                if (node != nullptr) {
+                    cnt--;
+                    departmentMap[node->data.getDepartment()]--;
                     BSTstudents.remove(id);
-                    cout << "Student is deleted. \n";
+                    cout << "\nStudent is deleted. \n";
                 } else {
-                    cout << "Student not found." << endl;
+                    cout << "\nStudent not found." << endl;
                 }
                 break;
             }
@@ -152,6 +159,10 @@ void BSTMenu(BinarySearchTree BSTstudents){
                 int id;
                 cout << "id: ";
                 cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
                 BSTstudents.search(id);
                 break;
             }
@@ -226,11 +237,18 @@ void AVLMenu(AVL AVLstudents){
                 int id;
                 cout << "id: ";
                 cin >> id;
-                if (AVLstudents.searchNode(id)) {
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
+                AVLNode* node = AVLstudents.searchNode(id);
+                if (node != nullptr) {
+                    cnt--;
+                    departmentMap[node->data.getDepartment()]--;
                     AVLstudents.deleteNode(id);
-                    cout << "Student is deleted. \n";
+                    cout << "\nStudent is deleted. \n";
                 } else {
-                    cout << "Student is not found.\n";
+                    cout << "\nStudent is not found.\n";
                 }
                 break;
             }
@@ -238,6 +256,10 @@ void AVLMenu(AVL AVLstudents){
                 int id;
                 cout << "id: ";
                 cin >> id;
+                while(id < 0 || id > 100){
+                    cout << "Invalid Id, try again: ";
+                    cin >> id;
+                }
                 AVLstudents.searchNode(id);
                 break;
             }

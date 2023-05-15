@@ -27,10 +27,6 @@ public:
     void inorder(Node* r);
     void preorder(Node* r);
     void postorder(Node* r);
-//    //For sorting the BST
-//    void inOrderTraversal(Node* root, vector<T>& sorted);
-//    vector<T> sortBinarySearchTree(Node* root);
-
 };
 
 

@@ -71,6 +71,7 @@ Student MinHeap::deleteMin() {
 }
 
 void MinHeap::heapSort() {
+    ///Time Complexity O(NlogN)
     vector<Student> tempHeap = heap;
     int sortedHeapSize = heap.size();
     vector<Student> sortedHeap;

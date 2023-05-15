@@ -70,6 +70,7 @@ Student MaxHeap::deleteMax() {
     return max;
 }
 void MaxHeap::heapSort() {
+    ///Time Complexity O(NlogN)
     vector<Student> tempHeap = heap;
     int sortedHeapSize = heap.size();
     vector<Student> sortedHeap;

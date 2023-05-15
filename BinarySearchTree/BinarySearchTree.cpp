@@ -149,17 +149,3 @@ void BinarySearchTree::postorder(Node *r) {
         cout<<r->data<<" ";
     }
 }
-////void BinarySearchTree<T>:: inOrderTraversal(Node* root, vector<T>& sorted) {
-//    if (root == nullptr) {
-//        return;
-//    }
-//
-//    inOrderTraversal(root->left, sorted);
-//    sorted.push_back(root->data);
-//    inOrderTraversal(root->right, sorted);
-//}
-////vector<T>  BinarySearchTree<T>::sortBinarySearchTree(Node* root) {
-//    vector<T> sorted;
-//    inOrderTraversal(root, sorted);
-//    return sorted;
-//}
