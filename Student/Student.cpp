@@ -36,7 +36,7 @@ string Student::getDepartment() const {
 }
 
 void Student::displayStudentData() {
-    cout<<"["<<id<<", "<<name<<", "<<gpa<<", "<<department<<"]";
+    cout << "[" << id << ", " << name << ", " << gpa << ", " << department << "]";
 }
 
 bool Student::operator<(const Student &other) const {
@@ -50,10 +50,13 @@ bool Student::operator>(const Student &other) const {
 bool Student::operator==(const Student &other) const {
     return id == other.getId();
 }
-//ostream &operator<<(ostream &os, Student student) {
-//    os<<"["<<student.getId()<<", "<<student.getName()<<", "<<student.getGpa()<<", "<<student.getDepartment()<<"]";
-//    return os;
-//}
+bool Student::operator!=(const Student &other) const {
+    return id != other.getId();
+}
+ostream &operator<<(ostream &os, const Student& student) {
+    os << "[" << student.getId() << ", " << student.getName() << ", " << student.getGpa() << ", " << student.getDepartment() << "]";
+    return os;
+}
 
 
 
